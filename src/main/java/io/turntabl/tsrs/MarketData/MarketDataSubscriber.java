@@ -11,7 +11,7 @@ public class MarketDataSubscriber implements MessageListener {
     Logger logger =  LoggerFactory.getLogger(MarketDataSubscriber.class);
 
     @Override
-    public void onMessage(Message message, byte[] pattern) {
+    public void onMessage(Message message,  byte[] pattern) {
         logger.info("Consumed Message {}", message);
     }
 }
