@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
 
-@RequestMapping("/orderApi")
+@RequestMapping("/api")
 @RestController
 public class Reportcontroller {
     @Autowired
@@ -21,6 +21,11 @@ public class Reportcontroller {
     public List<List> BuyOrderProduct(@PathVariable String product,@PathVariable String order_type){
         List forObject = restTemplate.getForObject(url+"/"+product+"/"+order_type, List.class);
         return Arrays.asList(forObject);
+    }
+
+    @GetMapping("/user/{username}")
+    public String getUserPortfolio(@PathVariable String username){
+          return "jee";
     }
 
 }
