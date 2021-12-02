@@ -2,6 +2,7 @@ package io.turntabl.tsrs.configuration;
 
 import io.turntabl.tsrs.model.Product;
 import io.turntabl.tsrs.service.MarketDataService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -14,11 +15,17 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 @Configuration
 public class RedisSubConfiguration {
+    @Value("${spring.redis.host}")
+    String redisHostName;
+
+    @Value("${spring.redis.port}")
+    Integer redisPort;
+
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-        redisStandaloneConfiguration.setHostName("178.62.99.21");
-        redisStandaloneConfiguration.setPort(6379);
+        redisStandaloneConfiguration.setHostName(redisHostName);
+        redisStandaloneConfiguration.setPort(redisPort);
         return new JedisConnectionFactory(redisStandaloneConfiguration);
     }
 
