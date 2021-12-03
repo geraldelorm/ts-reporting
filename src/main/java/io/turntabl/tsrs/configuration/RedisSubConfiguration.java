@@ -30,28 +30,39 @@ public class RedisSubConfiguration {
     }
 
     @Bean
-    public ChannelTopic channelTopic() {
-        return new ChannelTopic("MarketDataChannel");
+    public ChannelTopic marketDataFromExOne() {
+        return new ChannelTopic("marketDataFromExOne");
     }
 
     @Bean
-    public RedisTemplate redisTemplate() {
-        RedisTemplate<String, Product> template = new RedisTemplate<>();
-        template.setConnectionFactory(jedisConnectionFactory());
-        template.setDefaultSerializer(new Jackson2JsonRedisSerializer<Product>(Product.class));
-        return template;
+    public ChannelTopic marketDataFromExTwo(){
+        return new ChannelTopic("marketDataFromExTwo");
     }
 
-    @Bean
-    public MessageListenerAdapter messageListenerAdapter() {
-        return new MessageListenerAdapter(new MarketDataService());
+//    @Bean
+//    public RedisTemplate redisTemplate() {
+//        RedisTemplate<String, Product> template = new RedisTemplate<>();
+//        template.setConnectionFactory(jedisConnectionFactory());
+//        template.setDefaultSerializer(new Jackson2JsonRedisSerializer<Product>(Product.class));
+//        return template;
+//    }
+
+    @Bean("marketDataFromExOneListenerAdapter")
+    MessageListenerAdapter marketDataFromExOneListenerAdapter() {
+        return new MessageListenerAdapter(new MarketDataService(),"marketDataFromExOne");
+    }
+
+    @Bean("marketDataFromExTwoListenerAdapter")
+    MessageListenerAdapter marketDataFromExTwoListenerAdapter() {
+        return new MessageListenerAdapter(new MarketDataService(), "marketDataFromExTwo");
     }
 
     @Bean
     public RedisMessageListenerContainer redisMessageListenerContainer() {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(jedisConnectionFactory());
-        container.addMessageListener(messageListenerAdapter(),channelTopic());
+        container.addMessageListener(marketDataFromExOneListenerAdapter(), marketDataFromExOne());
+        container.addMessageListener(marketDataFromExTwoListenerAdapter(), marketDataFromExTwo());
         return container;
     }
 }

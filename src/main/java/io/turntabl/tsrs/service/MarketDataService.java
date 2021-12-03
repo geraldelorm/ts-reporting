@@ -7,13 +7,16 @@ import org.springframework.data.redis.connection.MessageListener;
 
 
 
-public class MarketDataService implements MessageListener {
+public class MarketDataService {
 
     Logger logger =  LoggerFactory.getLogger(MarketDataService.class);
 
-    @Override
-    public void onMessage(Message message,  byte[] pattern) {
-        logger.info("Consumed Message {}", message);
+    public void marketDataFromExOne(String message){
+        logger.info("Consumed Message From EX 1 {}", message);
+    }
+
+    public void marketDataFromExTwo(String message){
+        logger.info("Consumed Message From EX 2 {}", message);
     }
 }
 
