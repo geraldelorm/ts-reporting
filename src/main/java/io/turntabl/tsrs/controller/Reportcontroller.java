@@ -16,7 +16,8 @@ public class Reportcontroller {
     @Autowired
     private RestTemplate restTemplate;
     private static String url = "https://exchange.matraining.com/orderbook/";
-    private static String url_userportfolio="http://localhost:8080/api/v1/auth/portfolio";
+    private static String url_userportfolio="http://localhost:8083/api/v1/auth/portfolio";
+    private static String url_product="http://localhost:8083/api/v1/auth/product";
 
     @GetMapping("/{product}/{order_type}")
     public List<List> BuyOrderProduct(@PathVariable String product,@PathVariable String order_type){
@@ -38,6 +39,17 @@ public class Reportcontroller {
     @GetMapping("/portfolio/{user_id}")
     public List<List> getPortfolioByUserId(@PathVariable Long user_id){
         List forObject = restTemplate.getForObject(url_userportfolio + "/" + user_id, List.class);
+        return Arrays.asList(forObject);
+    }
+
+    @GetMapping("/product")
+    public List<List> getAllProducts(){
+        List forObject = restTemplate.getForObject(url_product, List.class);
+        return Arrays.asList(forObject);
+    }
+    @GetMapping("/product/{id}")
+    public List<List> getAllProductsInPortfolio(@PathVariable Long id){
+        List forObject = restTemplate.getForObject(url+"/"+id,List.class);
         return Arrays.asList(forObject);
     }
 
