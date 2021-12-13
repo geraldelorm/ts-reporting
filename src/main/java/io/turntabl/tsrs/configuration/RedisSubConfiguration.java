@@ -1,17 +1,14 @@
 package io.turntabl.tsrs.configuration;
 
-import io.turntabl.tsrs.model.Product;
 import io.turntabl.tsrs.service.MarketDataService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 @Configuration
 public class RedisSubConfiguration {
@@ -38,7 +35,6 @@ public class RedisSubConfiguration {
     public ChannelTopic marketDataFromExTwo(){
         return new ChannelTopic("marketDataFromExTwo");
     }
-
 
     @Bean("marketDataFromExOneListenerAdapter")
     MessageListenerAdapter marketDataFromExOneListenerAdapter() {
