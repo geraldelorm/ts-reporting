@@ -23,7 +23,7 @@ public class OrderTrackingService {
     RestTemplate restTemplate;
 
 
-    private final String ExchangeKey = "457a1e4f-09ac-4421-9259-fe4d9a999577";
+    private final String ExchangeKey = "c524d78f-9843-4ba2-90fc-8c7dafdad34f";
 
     @JmsListener(destination = "orderIDQueue")
     public void getOrderID(String message){
