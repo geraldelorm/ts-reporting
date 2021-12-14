@@ -1,4 +1,4 @@
-package io.turntabl.tsrs.entity;
+package io.turntabl.tsrs.OrderProcessing.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

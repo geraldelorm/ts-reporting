@@ -1,6 +1,6 @@
-package io.turntabl.tsrs.repository;
+package io.turntabl.tsrs.ClientConnectivity.repository;
 
-import io.turntabl.tsrs.entity.User;
+import io.turntabl.tsrs.ClientConnectivity.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

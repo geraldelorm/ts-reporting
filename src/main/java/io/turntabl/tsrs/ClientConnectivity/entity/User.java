@@ -1,6 +1,7 @@
-package io.turntabl.tsrs.entity;
+package io.turntabl.tsrs.ClientConnectivity.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.turntabl.tsrs.OrderProcessing.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
