@@ -1,32 +1,38 @@
-package io.turntabl.tsrs.entity;
+package io.turntabl.tsrs.ClientConnectivity.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "products")
-public class Product {
+@ToString
+@Table(name = "portfolios")
+public class Portfolio {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ticker")
-    private String ticker;
+    @Column(name = "name")
+    @NotNull
+    private String name;
 
-    @Column(name = "quantity")
-    private Integer quantity;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -38,12 +44,17 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    @JsonIgnore
-    private Long portfolioId;
-
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @NotNull
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Product> products = new ArrayList<>();
+
+    @JsonIgnore
+    public void addProduct(Product product){
+        products.add(product);
+    }
 }
